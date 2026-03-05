@@ -27,6 +27,7 @@
 </section>
 <hr class="my-4 text-white">
 
+{% if not user.is_authenticated %}
 <section class="py-3 text-center container text-white">
     <div class="text-center container text-black">
         <h3 class="fw-bold">
@@ -41,6 +42,7 @@
     </div>
 </section>
 <hr class="my-4 text-white">
+{% endif %}
 
 {% if user.is_authenticated %}
 <section class="py-5 text-center container">
