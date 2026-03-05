@@ -23,7 +23,7 @@ class Employee(models.Model):
 
     condition = models.CharField(
         choices=CONDITION_CHOICES,
-        verbose_name="Статус работника",
+        verbose_name="Статус сотрудника",
         default="work",
         null=True,
         blank=True,
@@ -37,6 +37,13 @@ class Employee(models.Model):
         verbose_name="профиль сотрудника",
     )
     salary = models.DecimalField("Оклад", max_digits=10, decimal_places=2, default=0)
+    department = models.OneToOneField(
+        Department,
+        on_delete=models.SET_NULL,
+        verbose_name="Отдел",
+        blank=True,
+        null=True,
+    )
     email = models.EmailField(unique=True, verbose_name="Электронная почта")
     first_name = models.CharField(
         max_length=50, verbose_name="Имя", blank=True, null=True
@@ -49,13 +56,6 @@ class Employee(models.Model):
     )
     position = models.CharField(
         max_length=100, verbose_name="Должность", blank=True, null=True
-    )
-    department = models.OneToOneField(
-        Department,
-        on_delete=models.SET_NULL,
-        verbose_name="Отдел",
-        blank=True,
-        null=True,
     )
     phone_number = models.CharField(
         max_length=25, verbose_name="Номер телефона", blank=True, null=True
@@ -93,6 +93,6 @@ class Employee(models.Model):
     class Meta:
         """Мета-информация модели User."""
 
-        verbose_name = "Работник"
-        verbose_name_plural = "Работники"
+        verbose_name = "Сотрудник"
+        verbose_name_plural = "Сотрудники"
         ordering = ["id"]
