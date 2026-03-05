@@ -2,8 +2,8 @@
 {% load my_tags %}
 {% block title %}Главная страница{% endblock %}
 {% block content %}
-<section class="text-center container text-white">
-    <h1 class="fw-light">{{ greeting }} !</h1>
+<section class="text-center container text-black">
+    <h1 class="fw-light">{{ greeting }}, дорогой сотрудник!</h1>
     <section class="py-3 text-center container text-white">
         <div class="d-flex justify-content-center gap-3">
             <div class="col-sm-2">
@@ -27,78 +27,32 @@
 </section>
 <hr class="my-4 text-white">
 
-<div class="text-center container text-white">
-    <h3 class="fw-light">
-        Общая информация по Отделу на {{current_date}} года. <!-- Добавить информацию по какому Отделу информация -->
-    </h3>
-</div>
 <section class="py-3 text-center container text-white">
-    <div class="d-flex justify-content-center gap-3">
-        <div class="col">
-            <a class="btn btn-success w-100" style="text-align: center"
-               href="#" role="button">Информация о Сотрудниках
-            </a>
-        </div>
-        <div class="col">
-            <a class="btn btn-success w-100" style="text-align: center"
-               href="#" role="button">Участки (Сектора)
-            </a>
-        </div>
-        <div class="col">
-            <a class="btn btn-success w-100" style="text-align: center"
-               href="#" role="button">Задачи
-            </a>
-        </div>
-        <div class="col">
-            <a class="btn btn-success w-100" style="text-align: center"
-               href="#" role="button">Заявки
-            </a>
-        </div>
-        <div class="col">
-            <a class="btn btn-success w-100" style="text-align: center"
-               href="#" role="button">Мероприятия
-            </a>
-        </div>
+    <div class="text-center container text-black">
+        <h3 class="fw-bold">
+            Ты зашел на этот сервис не просто так!
+            С помощью данного сервиса, руководитель может сам управлять всем спектром направлений компании,
+            а может делегировать часть прав управления компанией, то есть назначить сотрудникам права
+            для управления определенными направлениями компании (администраторы, супер-пользователи, менеджеры, руководители и т.д.)
+            Сотрудники компании, которые не входят в группу управленческого персонала, так же имеют доступ к данному сервису.
+            Они имеют возможность войти на сервис и увидеть информацию по своему направлению работы.
+            Вход становится возможным, как только Вы станете сотрудником данной компании!  <!-- Добавить какую информацию выводить -->
+        </h3>
     </div>
 </section>
 <hr class="my-4 text-white">
 
+{% if user.is_authenticated %}
 <section class="py-5 text-center container">
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 text-center"> <!--  -->
-    <div class="col">
-        <a class="btn btn-success w-100" style="text-align: center"
-           href="#" role="button">Личный кабинет
-        </a>
-    </div>
-
     <div class="col">
         <a class="btn btn-success w-100" style="text-align: center"
            href="{% url 'admin:index' %}" role="button">Войти в административную часть сайта
         </a>
     </div>
-
-    <div class="col">
-        <form method="post" action="#">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success w-100" style="text-align: center" role="button">Выход
-            </button>
-        </form>
-    </div>
-
-    <div class="col">
-        <a class="btn btn-success w-50" style="text-align: center"
-           href="#" role="button">Вход на сайт
-        </a>
-    </div>
-    <div class="col">
-        <a class="btn btn-success w-50" style="text-align: center"
-           href="#" role="button">Зарегистрироваться на сайте
-        </a>
-    </div>
-
-
 </div>
 </section>
 <hr class="my-4 text-white">
+{% endif %}
 
 {% endblock %}
