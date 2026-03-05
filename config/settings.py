@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "home_page.apps.HomePageConfig",
     "users.apps.UsersConfig",
+    "employees.apps.EmployeesConfig",
 ]
 
 # Список промежуточного ПО, которое обрабатывает входящие запросы и выходящие ответы.
