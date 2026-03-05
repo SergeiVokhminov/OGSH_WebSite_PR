@@ -1,3 +1,98 @@
+import uuid
+
 from django.db import models
 
-# Create your models here.
+from config import settings
+from departments.models import Department
+
+
+class Employee(models.Model):
+    """Поля для модели профиля работника."""
+
+    at_work = "work"
+    on_vacation = "vacation"
+    on_sick_leave = "sick_leave"
+    truancy = "truancy"
+
+    CONDITION_CHOICES = [
+        (at_work, "На работе"),
+        (on_vacation, "В отпуске"),
+        (on_sick_leave, "На больничном"),
+        (truancy, "Прогул"),
+    ]
+
+    condition = models.CharField(
+        choices=CONDITION_CHOICES,
+        verbose_name="Статус работника",
+        default="work",
+        null=True,
+        blank=True,
+    )
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="employee_profile",
+        verbose_name="профиль сотрудника",
+    )
+    salary = models.DecimalField("Оклад", max_digits=10, decimal_places=2, default=0)
+    email = models.EmailField(unique=True, verbose_name="Электронная почта")
+    first_name = models.CharField(
+        max_length=50, verbose_name="Имя", blank=True, null=True
+    )
+    last_name = models.CharField(
+        max_length=50, verbose_name="Фамилия", blank=True, null=True
+    )
+    patronymic = models.CharField(
+        max_length=50, verbose_name="Отчество", blank=True, null=True
+    )
+    position = models.CharField(
+        max_length=100, verbose_name="Должность", blank=True, null=True
+    )
+    department = models.OneToOneField(
+        Department,
+        on_delete=models.SET_NULL,
+        verbose_name="Отдел",
+        blank=True,
+        null=True,
+    )
+    phone_number = models.CharField(
+        max_length=25, verbose_name="Номер телефона", blank=True, null=True
+    )
+    address = models.CharField(
+        max_length=255, verbose_name="Адрес", blank=True, null=True
+    )
+    date_of_birth = models.DateField(
+        verbose_name="Дата рождения", blank=True, null=True
+    )
+    last_login = models.DateTimeField(auto_now=True, verbose_name="Последний вход")
+    date_joined = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата регистрации"
+    )
+    avatar = models.ImageField(
+        upload_to="photo/avatars/", verbose_name="Аватар", blank=True, null=True
+    )
+    token = models.CharField(
+        max_length=100, verbose_name="Токен пользователя", blank=True, editable=False
+    )
+    can_login = models.BooleanField(
+        verbose_name="Возможность входа в систему", default=False
+    )  # Возможность реализации входа на сайт в будущем
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = uuid.uuid4().hex
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        """Метод для строкового представления объекта Employee."""
+
+        return f"{self.last_name} {self.first_name} - {self.position}"
+
+    class Meta:
+        """Мета-информация модели User."""
+
+        verbose_name = "Работник"
+        verbose_name_plural = "Работники"
+        ordering = ["id"]
