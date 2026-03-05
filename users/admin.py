@@ -1,3 +1,17 @@
 from django.contrib import admin
 
-# Register your models here.
+from users.models import CustomUser
+
+
+@admin.register(CustomUser)
+class UserAdmin(admin.ModelAdmin):
+    """Поля в административной панели."""
+
+    list_display = (
+        "id",
+        "email",
+        "is_active",
+        "date_joined",
+    )
+    list_filter = ("id",)
+    search_fields = ("email",)

@@ -1,0 +1,67 @@
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
+from users.models import CustomUser
+
+
+class UserForm(forms.ModelForm):
+    """Форма представления пользователя."""
+
+    class Meta:
+        model = CustomUser
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+
+
+class UserAuthForm(AuthenticationForm):
+    """Форма входа пользователя на сайт."""
+
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Введите email"}
+        ),
+    )
+    password = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Введите пароль"}
+        ),
+        label="Пароль",
+    )
+
+
+class UserRegisterForm(UserCreationForm):
+    """Форма регистрации пользователя на сайте."""
+
+    class Meta:
+        model = CustomUser
+        fields = ["email", "password1", "password2"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите адрес электронной почты"}
+        )
+        self.fields["password1"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите пароль"}
+        )
+        self.fields["password2"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите пароль"}
+        )
+
+    def clean_email(self):
+        """Проверка электронной почты."""
+
+        email_address = self.cleaned_data.get("email")
+        if (
+            CustomUser.objects.filter(email=email_address)
+            .exclude(pk=self.instance.pk)
+            .exists()
+        ):
+            raise forms.ValidationError(
+                "Этот адрес электронной почты уже зарегистрирован!"
+            )
+        return email_address
