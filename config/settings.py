@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "home_page.apps.HomePageConfig",
     "users.apps.UsersConfig",
     "employees.apps.EmployeesConfig",
+    "departments.apps.DepartmentsConfig",
+
 ]
 
 # Список промежуточного ПО, которое обрабатывает входящие запросы и выходящие ответы.
