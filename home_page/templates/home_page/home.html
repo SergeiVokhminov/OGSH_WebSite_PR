@@ -44,17 +44,4 @@
 <hr class="my-4 text-white">
 {% endif %}
 
-{% if user.is_authenticated %}
-<section class="py-5 text-center container">
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 text-center"> <!--  -->
-    <div class="col">
-        <a class="btn btn-success w-100" style="text-align: center"
-           href="{% url 'admin:index' %}" role="button">Войти в административную часть сайта
-        </a>
-    </div>
-</div>
-</section>
-<hr class="my-4 text-white">
-{% endif %}
-
 {% endblock %}
