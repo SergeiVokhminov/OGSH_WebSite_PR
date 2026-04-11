@@ -62,4 +62,4 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(f"Ошибка при создании: {e}"))
 
 if __name__ == "__main__":
-    pass
+    person = Command()
