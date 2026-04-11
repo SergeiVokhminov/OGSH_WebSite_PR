@@ -16,3 +16,15 @@ class HomeView(TemplateView):
         context["greeting"] = TimeGreeting.get_greeting()  # Применяем класс приветствия
 
         return context
+
+class MainView(TemplateView):
+    """Контроллер представления главной страницы."""
+
+    template_name = "home_page/main.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["greeting"] = TimeGreeting.get_greeting()  # Применяем класс приветствия
+
+        return context
