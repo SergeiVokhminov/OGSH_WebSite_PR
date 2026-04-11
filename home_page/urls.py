@@ -9,4 +9,5 @@ app_name = HomePageConfig.name
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
+    path("main", HomeView.as_view(), name="main"),
 ]
