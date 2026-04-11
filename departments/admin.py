@@ -9,6 +9,8 @@ class DepartmentAdmin(admin.ModelAdmin):
 
     list_display = (
         "id",
+        "name",
+        "abbreviated_name",
     )
-    list_filter = ("id",)
-    search_fields = ("id",)
+    list_filter = ("id", "name",)
+    search_fields = ("id", "abbreviated_name",)
