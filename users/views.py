@@ -21,7 +21,7 @@ class UserLoginView(LoginView):
     form_class = UserAuthForm
     template_name = "users/login.html"  # Указываем путь к шаблону для входа
     success_url = reverse_lazy(
-        "home_pages:home"
+        "home_page:main"
     )  # Указываем URL, на который будет перенаправлен пользователь после успешного входа
     redirect_authenticated_user = (
         True  # Перенаправлять аутентифицированных пользователей
