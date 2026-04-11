@@ -149,7 +149,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 # Именованный адрес для авторизации
 LOGIN_URL = "users:login"
 # Именованный адрес на который следует перенаправлять пользователя после успешной авторизации
-LOGIN_REDIRECT_URL = "home_page:home"
+LOGIN_REDIRECT_URL = "home_page:main"
 # Именованный адрес на который перенаправляется пользователь после выхода
 LOGOUT_REDIRECT_URL = "home_page:home"
 
