@@ -15,8 +15,8 @@ class CustomUser(AbstractUser):
         unique=True,
     )  # секретный токен
 
-    USERNAME_FIELD = "email"  # используем почту для входа
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = "email"  # используем почту, как основное поле (обязательное для ввода)
+    REQUIRED_FIELDS = []  # можно добавить дополнительные поля
 
     #  генерация секретного токена
     def save(self, *args, **kwargs):
@@ -25,7 +25,7 @@ class CustomUser(AbstractUser):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        """Метод для строкового представления объекта User."""
+        """Метод для строкового представления объекта пользователя (User)."""
 
         return f"{self.email}"
 
